@@ -1,2 +1,11 @@
-package com.example.mybook.repositories;public class BookRepository {
+package com.example.mybook.repositories;
+
+import com.example.mybook.domain.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface BookRepository extends JpaRepository <Book, Integer> {
+
+
 }
