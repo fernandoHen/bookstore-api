@@ -1,21 +1,30 @@
 package com.example.mybook.domain;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Book {
+@Entity
+public class Books implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
     private String authorName;
     private String textOfBook;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
-    public Book() {
+    public Books() {
         super();
     }
 
-    public Book(Integer id, String title, String authorName, String textOfBook, Category category) {
+    public Books(Integer id, String title, String authorName, String textOfBook, Category category) {
         super();
         this.id = id;
         this.title = title;
