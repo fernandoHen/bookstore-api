@@ -19,12 +19,11 @@ public class Category {
         super();
     }
 
-    public Category(Integer id, String names, String description, List<Book> books) {
+    public Category(Integer id, String names, String description) {
         super();
         this.id = id;
         this.names = names;
         this.description = description;
-        this.books = books;
     }
 
     public Integer getId() {
