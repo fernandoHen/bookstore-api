@@ -3,7 +3,6 @@ package com.example.mybook.domain;
 import jdk.dynalink.linker.LinkerServices;
 
 import javax.persistence.*;
-import java.awt.print.Book;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class Category implements Serializable {
     private String description;
 
     @OneToMany(mappedBy = "category")
-    private List<Books> books = new ArrayList<>();
+    private List<Book> books = new ArrayList<>();
 
     public Category() {
         super();

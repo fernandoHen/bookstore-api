@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Books implements Serializable {
+public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,11 +20,11 @@ public class Books implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public Books() {
+    public Book() {
         super();
     }
 
-    public Books(Integer id, String title, String authorName, String textOfBook, Category category) {
+    public Book(Integer id, String title, String authorName, String textOfBook, Category category) {
         super();
         this.id = id;
         this.title = title;
