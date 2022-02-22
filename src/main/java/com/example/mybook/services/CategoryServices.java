@@ -2,6 +2,7 @@ package com.example.mybook.services;
 
 import com.example.mybook.domain.Category;
 import com.example.mybook.repositories.CategoryRepository;
+import com.example.mybook.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,10 @@ public class CategoryServices {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    //() -> funcao anonima
     public Category findById(Integer id) {
         Optional<Category> obj = categoryRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado. ID: " + id + ", Tipo: " + Category.class.getName()));
     }
-
 }
