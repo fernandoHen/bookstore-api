@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRepository extends JpaRepository <Category, Integer> {
     //jpaRepository<classe implementada no repositorio, tipo da variavel primitica de chave primaria>
-
+    // camada de accesso aos dados
 
 }

@@ -1,5 +1,7 @@
 package com.example.mybook.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -16,6 +18,9 @@ public class Book implements Serializable {
     private String authorName;
     private String textOfBook;
 
+    //JsonIgnore - ignora a categiria quando chamar, trago apenas o livro
+    //evita serialização
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
