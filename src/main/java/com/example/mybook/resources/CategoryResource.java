@@ -6,17 +6,18 @@ import com.example.mybook.services.CategoryServices;
 import com.mysql.cj.x.protobuf.MysqlxSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.sql.ClientInfoStatus;
 import java.util.List;
 import java.util.stream.Collectors;
 
 //camada que recebe os valores do front-end
-
+//https://www.baeldung.com/spring-response-entity
+//ResponseEntity representa toda a resposta HTTP: código de status,
+// cabeçalhos e corpo . Como resultado, podemos usá-lo para configurar totalmente a resposta HTTP.
 @RestController
 @RequestMapping(value = "/category")
 public class CategoryResource {
@@ -39,6 +40,14 @@ public class CategoryResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
+    @PostMapping
+    public ResponseEntity<Category> create(@RequestBody Category objCategory) {
+        objCategory = categoryServices.create(objCategory);
+        //boas praticas retorna para o usuario uma nova uri, se cria uma uri de acesso para nova class, para o objeto
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(objCategory.getId()).toUri();
+        // ou desse forma ResponseEntity.created(uri).build(null)
+        return ResponseEntity.created(uri).body(objCategory);
+    }
 
 }
 //serializacao - nesse caso, quando chama uma categoria, o livro tbm tem uma categoria como padrao
