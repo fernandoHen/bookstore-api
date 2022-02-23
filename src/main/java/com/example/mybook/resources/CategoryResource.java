@@ -57,6 +57,12 @@ public class CategoryResource {
         return ResponseEntity.ok().body(new CategoryDTO(newObj));
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        categoryServices.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
 //serializacao - nesse caso, quando chama uma categoria, o livro tbm tem uma categoria como padrao
 //isso pode causar um loop
