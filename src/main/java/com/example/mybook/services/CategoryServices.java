@@ -36,4 +36,12 @@ public class CategoryServices {
         return categoryRepository.save(objCategory);
     }
 
+    public Category update(Integer id, Category objCategoryDTO) {
+        //verificar se a categoria passada como parametro, realmente existe
+        Category obj = findById(id);
+        //se ja existe o id, apenas entao atualiza as informaçoes no banco de dados
+        obj.setNames(objCategoryDTO.getNames());
+        obj.setDescription(objCategoryDTO.getDescription());
+        return categoryRepository.save(obj);
+    }
 }

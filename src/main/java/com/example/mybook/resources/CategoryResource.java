@@ -49,6 +49,14 @@ public class CategoryResource {
         return ResponseEntity.created(uri).body(objCategory);
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CategoryDTO> update(@PathVariable Integer id, @RequestBody Category objCategoryDTO) {
+        //objCategoryDTO: são as informaçoes dos objetos atualizadas
+        Category newObj = categoryServices.update(id, objCategoryDTO);
+        //retorno agora uma nova instancia de categoria dto
+        return ResponseEntity.ok().body(new CategoryDTO(newObj));
+    }
+
 }
 //serializacao - nesse caso, quando chama uma categoria, o livro tbm tem uma categoria como padrao
 //isso pode causar um loop

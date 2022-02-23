@@ -11,8 +11,8 @@ public class CategoryDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
-    private String name;
-    private String descriptios;
+    private String names;
+    private String description;
 
     public CategoryDTO() {
         super();
@@ -21,10 +21,9 @@ public class CategoryDTO implements Serializable {
     public CategoryDTO(Category objCategory) {
         super();
         this.id = objCategory.getId();
-        this.name = objCategory.getNames();
-        this.descriptios = objCategory.getDescription();
+        this.names = objCategory.getNames();
+        this.description = objCategory.getDescription();
     }
-
 
     public Integer getId() {
         return id;
@@ -34,20 +33,20 @@ public class CategoryDTO implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNames() {
+        return names;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNames(String names) {
+        this.names = names;
     }
 
-    public String getDescriptios() {
-        return descriptios;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptios(String descriptios) {
-        this.descriptios = descriptios;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }
