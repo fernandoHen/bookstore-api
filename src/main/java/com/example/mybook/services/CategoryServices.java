@@ -2,6 +2,7 @@ package com.example.mybook.services;
 
 import com.example.mybook.domain.Category;
 import com.example.mybook.repositories.CategoryRepository;
+import com.example.mybook.services.exceptions.DataIntegrityViolationException;
 import com.example.mybook.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -47,6 +48,10 @@ public class CategoryServices {
 
     public void delete(Integer id) {
         findById(id);
-        categoryRepository.deleteById(id);
+        try {
+            categoryRepository.deleteById(id);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            throw new com.example.mybook.services.exceptions.DataIntegrityViolationException("Categoria não pode ser deletado, possi livros associados");
+        }
     }
 }
