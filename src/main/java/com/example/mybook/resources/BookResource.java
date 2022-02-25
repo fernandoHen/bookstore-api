@@ -39,4 +39,29 @@ public class BookResource {
         return ResponseEntity.ok().body(listBookDTO);
     }
 
+    //metodo update, tem dois modos
+    //put e path -- tipos de requisicoes
+    //put - quando se quer atualizar todas as informaçoes da minha entidade
+    //path - utilizo quando se quer atualizar informação parcial da entidade
+    //@PathVariable informaçao vem da url /{id}
+
+    //atualiza toda a informaçao
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Book> update(@PathVariable Integer id, @RequestBody Book objBookUpdate) {
+        //id do livro com informçao desatualizada
+        //objBook Update - informações a serem atualizadas
+        Book bookNewObj = bookServices.update(id, objBookUpdate);
+        return ResponseEntity.ok().body(bookNewObj);
+    }
+
+    //atualiza informaçao parcial
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<Book> updatePatch(@PathVariable Integer id, @RequestBody Book objBookUpdate) {
+        //id do livro com informçao desatualizada
+        //objBook Update - informações a serem atualizadas
+        Book bookNewObj = bookServices.update(id, objBookUpdate);
+        return ResponseEntity.ok().body(bookNewObj);
+    }
+
+
 }
