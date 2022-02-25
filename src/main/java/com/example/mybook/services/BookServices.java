@@ -59,4 +59,10 @@ public class BookServices {
         obj.setCategory(category); //seto a categoria, com o valor que buscamos no bd, que é o category. Livro ja conhece sua categoria
         return bookRepository.save(obj);
     }
+
+    public void delete(Integer id) {
+        //verifico se o book existe no bd
+        Book objBook =findById(id);
+        bookRepository.delete(objBook);
+    }
 }
