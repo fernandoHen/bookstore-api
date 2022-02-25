@@ -1,6 +1,7 @@
 package com.example.mybook.services;
 
 import com.example.mybook.domain.Book;
+import com.example.mybook.domain.Category;
 import com.example.mybook.repositories.BookRepository;
 import com.example.mybook.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,13 @@ public class BookServices {
         //seto a informaçao objBookUpdate.X, assim atualizo o newObjBook
         newObjBook.setAuthorName(objBookUpdate.getAuthorName());
         newObjBook.setTextOfBook(objBookUpdate.getTextOfBook());
+    }
+
+    public Book create(Integer id_category, Book obj) {
+        //primeiro setar o valor do id do objeto para null, para evitar problemas com id
+        obj.setId(null);
+        Category category = categoryServices.findById(id_category); //verifico se existe a categoria no bd
+        obj.setCategory(category); //seto a categoria, com o valor que buscamos no bd, que é o category. Livro ja conhece sua categoria
+        return bookRepository.save(obj);
     }
 }

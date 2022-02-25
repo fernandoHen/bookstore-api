@@ -4,9 +4,13 @@ import com.example.mybook.domain.Book;
 import com.example.mybook.dtos.BookDTO;
 import com.example.mybook.services.BookServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.availability.LivenessState;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.Servlet;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +65,16 @@ public class BookResource {
         //objBook Update - informações a serem atualizadas
         Book bookNewObj = bookServices.update(id, objBookUpdate);
         return ResponseEntity.ok().body(bookNewObj);
+    }
+
+    @PostMapping
+    public ResponseEntity<Book> create(@RequestParam(value = "category", defaultValue = "0") Integer id_category,
+                                       @RequestBody Book obj) {
+        //o parametro de categoria tem que ser recebido na url e nao do corpo
+        Book newObjBookCreate = bookServices.create(id_category, obj);
+        //se criamos uma nova instancia do objeto, tem q retornar o uri
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/books/{id}").buildAndExpand(newObjBookCreate.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
 
