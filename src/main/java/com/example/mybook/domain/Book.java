@@ -1,8 +1,10 @@
 package com.example.mybook.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,8 +16,17 @@ public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotEmpty(message = "Campo TITLE não pode ser vazio!")
+    @Length(min = 3, max = 50, message = "O campo TITLE deve ter entre 3 e 50 caracteres")
     private String title;
+
+    @NotEmpty(message = "Campo AUTHOTNAME não pode ser vazio!")
+    @Length(min = 3, max = 50, message = "O campo AUTHOTNAME deve ter entre 3 e 50 caracteres")
     private String authorName;
+
+    @NotEmpty(message = "Campo TEXTOFBOOK não pode ser vazio!")
+    @Length(min = 10, max = 200000, message = "O campo TEXTOFBOOK deve ter entre 3 e 2.000.000 caracteres")
     private String textOfBook;
 
     //JsonIgnore - ignora a categiria quando chamar, trago apenas o livro

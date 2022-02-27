@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.sql.ClientInfoStatus;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 //https://www.baeldung.com/spring-response-entity
 //ResponseEntity representa toda a resposta HTTP: código de status,
 // cabeçalhos e corpo . Como resultado, podemos usá-lo para configurar totalmente a resposta HTTP.
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/category")
 public class CategoryResource {
@@ -41,7 +43,8 @@ public class CategoryResource {
     }
 
     @PostMapping
-    public ResponseEntity<Category> create(@RequestBody Category objCategory) {
+    public ResponseEntity<Category> create(@Valid @RequestBody Category objCategory) {
+        //o @valid verifica se os requisitos da classe Category.java são validos
         objCategory = categoryServices.create(objCategory);
         //boas praticas retorna para o usuario uma nova uri, se cria uma uri de acesso para nova class, para o objeto
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(objCategory.getId()).toUri();
@@ -50,7 +53,7 @@ public class CategoryResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO> update(@PathVariable Integer id, @RequestBody Category objCategoryDTO) {
+    public ResponseEntity<CategoryDTO> update(@PathVariable Integer id, @Valid @RequestBody Category objCategoryDTO) {
         //objCategoryDTO: são as informaçoes dos objetos atualizadas
         Category newObj = categoryServices.update(id, objCategoryDTO);
         //retorno agora uma nova instancia de categoria dto

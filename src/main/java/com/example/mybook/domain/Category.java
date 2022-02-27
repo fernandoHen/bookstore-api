@@ -1,8 +1,10 @@
 package com.example.mybook.domain;
 
 import jdk.dynalink.linker.LinkerServices;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,13 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private  String names;
+
+    @NotEmpty(message = "Campo NAMES não pode ser vazio!")
+    @Length(min = 3, max = 100, message = "O campo NAMES deve ter entre 3 e 100 caracteres")
+    private String names;
+
+    @NotEmpty(message = "Campo DESCRIPTION não pode ser vazio!")
+    @Length(min = 3, max = 200, message = "O campo DESCRIPTION deve ter entre 3 e 200 caracteres")
     private String description;
 
     @OneToMany(mappedBy = "category")

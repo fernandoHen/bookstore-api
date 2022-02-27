@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.Servlet;
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//significa que as nossas requisiçoes podem receber as requisiçoes de diversas outras fontes:
+//exemplo do front angular
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/books")
 public class BookResource {
@@ -51,7 +55,7 @@ public class BookResource {
 
     //atualiza toda a informaçao
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Book> update(@PathVariable Integer id, @RequestBody Book objBookUpdate) {
+    public ResponseEntity<Book> update(@PathVariable Integer id, @Valid @RequestBody Book objBookUpdate) {
         //id do livro com informçao desatualizada
         //objBook Update - informações a serem atualizadas
         Book bookNewObj = bookServices.update(id, objBookUpdate);
@@ -60,7 +64,7 @@ public class BookResource {
 
     //atualiza informaçao parcial
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Book> updatePatch(@PathVariable Integer id, @RequestBody Book objBookUpdate) {
+    public ResponseEntity<Book> updatePatch(@PathVariable Integer id, @Valid @RequestBody Book objBookUpdate) {
         //id do livro com informçao desatualizada
         //objBook Update - informações a serem atualizadas
         Book bookNewObj = bookServices.update(id, objBookUpdate);
@@ -69,7 +73,7 @@ public class BookResource {
 
     @PostMapping
     public ResponseEntity<Book> create(@RequestParam(value = "category", defaultValue = "0") Integer id_category,
-                                       @RequestBody Book obj) {
+                                       @Valid  @RequestBody Book obj) {
         //o parametro de categoria tem que ser recebido na url e nao do corpo
         Book newObjBookCreate = bookServices.create(id_category, obj);
         //se criamos uma nova instancia do objeto, tem q retornar o uri
