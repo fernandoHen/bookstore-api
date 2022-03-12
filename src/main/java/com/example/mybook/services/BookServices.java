@@ -62,7 +62,7 @@ public class BookServices {
 
     public void delete(Integer id) {
         //verifico se o book existe no bd
-        Book objBook =findById(id);
+        Book objBook = findById(id);
         bookRepository.delete(objBook);
     }
 }
